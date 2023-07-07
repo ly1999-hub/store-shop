@@ -38,20 +38,13 @@ public class AdminService implements IAdminService{
         for (String role : registerAdmin.getListRole()) {
             RoleName roleName = Enum.valueOf(RoleName.class, role);
             Role r=roleRepository.findByRoleName(roleName);
-            roles.add(r);
-            
+            roles.add(r); 
         }
         admin.setRoles(roles);
         Location location=locationService.save(new RegisterLocation(registerAdmin.getLocationDetail(), registerAdmin.getIdWard()));
         admin.setLocation(location);
         Admin newAdmin=adminRepository.save(admin);
-        // for (Role role : roles) {
-        //     Set<Admin> admins=new HashSet<>(role.getAdmins());
-        //     admins.add(newAdmin);
-        //     role.setAdmins(admins);
-        //     roleRepository.save(role);
-        // }
-       
+
         return newAdmin;
     }
 
@@ -59,6 +52,7 @@ public class AdminService implements IAdminService{
     public Page<Admin> allAdmin(int page, int total) {
         PageRequest pageDetail = PageRequest.of(page, total);
         Page<Admin> allProducts = adminRepository.findAll(pageDetail);
+
         return allProducts;
     }
 
@@ -68,21 +62,3 @@ public class AdminService implements IAdminService{
     }
     
 }
-
-//  @Override
-//     public Page<Admin> allAdmin(int page, int total) {
-//        PageRequest pageDetail = PageRequest.of(page, total);
-//        Page<Admin> allProducts = adminRepository.findAll(pageDetail);
-//        return allProducts;
-
-//        ///
-//        for (String role : registerAdmin.getListRole()) {
-//             Role r=new Role();
-//             RoleName roleName = Enum.valueOf(RoleName.class, role);
-//              r=roleRepository.findByRoleName(roleName);
-//             if(r!=null){
-//                 listRole.add(r);
-//             }
-//         }
-//     }
-

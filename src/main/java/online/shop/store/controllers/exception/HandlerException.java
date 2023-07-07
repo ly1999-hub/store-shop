@@ -2,6 +2,8 @@ package online.shop.store.controllers.exception;
 
 import java.io.FileNotFoundException;
 
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,15 +24,26 @@ public class HandlerException {
         return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body("khong tim thay file");
     }
 
+
     @ExceptionHandler(NullPointerException.class)
         public ResponseEntity<String> handleNullPointerException(NullPointerException exc) {
-            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(exc.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("lỗi hệ thống");
         }    
     
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<String> handleNotFoundException(NotFoundException exc) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("not found");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("giá trị không tồn tại");
     }
-        
-        
+    
+    // Là tập hợp các lỗi chung cho tất cả các lỗi truy cập dữ liệu 
+    @ExceptionHandler(DataAccessException.class)
+    public ResponseEntity<String> handleDataAccessException(DataAccessException exc){
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Lỗi Server");
+    }
+     
+    // Truy vấn mong đợi là một nhưng trả về n>1 ...
+    @ExceptionHandler(IncorrectResultSizeDataAccessException.class)
+    public ResponseEntity<String> handleIncorrectResultSizeDataAccessException(IncorrectResultSizeDataAccessException exc){
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Lỗi hệ thống. mời bạn thử lại");
+    }
 }
