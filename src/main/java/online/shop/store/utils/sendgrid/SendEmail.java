@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import com.sendgrid.Content;
 import com.sendgrid.Email;
@@ -14,6 +15,7 @@ import com.sendgrid.Request;
 import com.sendgrid.Response;
 import com.sendgrid.SendGrid;
 
+@Service
 public class SendEmail implements ISendEmail{
 
     private static final String CONTENT_TYPE_TEXT_PLAIN = "text/plain";
@@ -40,7 +42,6 @@ public class SendEmail implements ISendEmail{
         Mail mail = buildMailToSend(subject, content, sendToEmails, ccEmails, bccEmails);
         send(mail);
     }
-        
 
     private void send(Mail mail) {
        SendGrid sg = new SendGrid(sendGridApiKey);

@@ -1,6 +1,5 @@
 package online.shop.store.controllers.admin;
 
-import java.util.Collections;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import online.shop.store.dto.RegisterAdmin;
-import online.shop.store.dto.entity.Admin;
+import jakarta.validation.Valid;
+import online.shop.store.dto.entity.admin.Admin;
+import online.shop.store.dto.entity.admin.AdminResponse;
+import online.shop.store.dto.entity.admin.RegisterAdmin;
 import online.shop.store.repository.AdminRepository;
 import online.shop.store.services.admin.AdminService;
 import online.shop.store.utils.sendgrid.SendEmail;
@@ -42,10 +43,9 @@ public class AdminController {
         return "login";
     }
 
-    private SendEmail sendEmail;
     // RegisterAdmin ..
     @PostMapping("/register")
-    public ResponseEntity<?> registerAdmin(@RequestBody RegisterAdmin registerAdmin){
+    public ResponseEntity<?> registerAdmin(@RequestBody @Valid RegisterAdmin registerAdmin){
         if(adminService.existAdminByEmail(registerAdmin.getEmail())){
             return new ResponseEntity<String>("email đã tồn tại", HttpStatus.CONFLICT);
         }
@@ -121,7 +121,6 @@ public class AdminController {
     @PostMapping("/forget-password")
     public ResponseEntity<?> forgetPassword(@RequestParam("email") String email){
         Admin admin=adminService.forgetPassword(email);
-        sendEmail.sendMail("Forget Password", "newPass", Collections.singletonList(email), null, null);
-        return new ResponseEntity<String>("login", HttpStatus.OK);
+        return new ResponseEntity<Admin>(admin, HttpStatus.CREATED);
     }
 }

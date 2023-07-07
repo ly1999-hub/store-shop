@@ -6,15 +6,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 // import org.springframework.context.annotation.Bean;
 
 // import online.shop.store.repository.location.ProvinceRepository;
-
-// import online.shop.store.models.Role;
-// import online.shop.store.models.RoleName;
-// import online.shop.store.models.location.Distric;
-// import online.shop.store.models.location.Province;
-// import online.shop.store.models.location.Ward;
+// import online.shop.store.dto.entity.Role;
+// import online.shop.store.dto.entity.RoleName;
+// import online.shop.store.dto.entity.location.Distric;
+// import online.shop.store.dto.entity.location.Province;
+// import online.shop.store.dto.entity.location.Ward;
 // import online.shop.store.repository.RoleRepository;
 // import online.shop.store.repository.location.DistrictRepository;
-// import online.shop.store.repository.location.ProvinceRepository;
 // import online.shop.store.repository.location.WardRepository;
 
 @SpringBootApplication
@@ -32,9 +30,10 @@ public class StoreApplication {
 	// 		roleRepository.save(new Role(RoleName.ORDER));
 	// 		roleRepository.save(new Role(RoleName.LOCATION));
 
-	// 		// Province province=provinceRepository.save(new Province("Da Nang"));
-	// 		// Distric distric=districtRepository.save(new Distric("Lien Chieu", province));
-	// 		// Ward ward =wardRepository.save(new Ward("Hoa Khanh Nam", distric));
+	// 		Province province=provinceRepository.save(new Province("Da Nang"));
+	// 		Distric distric=districtRepository.save(new Distric("Lien Chieu", province));
+	// 		Ward ward =wardRepository.save(new Ward("Hoa Khanh Nam", distric));
+	// 		System.out.print(ward.toString());
 	// 	};
 	// }
 	

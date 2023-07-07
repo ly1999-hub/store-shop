@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
-import online.shop.store.dto.entity.Admin;
+import online.shop.store.dto.entity.admin.Admin;
 
 @Data
 @Entity

@@ -9,9 +9,13 @@ import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
+
+import jakarta.validation.ConstraintViolationException;
 
 @RestControllerAdvice
 public class HandlerException {
@@ -54,5 +58,18 @@ public class HandlerException {
     public ResponseEntity<String> handleIncorrectResultSizeDataAccessException(IncorrectResultSizeDataAccessException exc){
         LOG.error(exc.getMessage(), exc);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Lỗi hệ thống. mời bạn thử lại");
+    }
+
+    // @ExceptionHandler(ConstraintViolationException.class)
+    // public ResponseEntity<String> handleConstraintViolationException(ConstraintViolationException exc){
+    //     LOG.warn(exc.getMessage());
+    //     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Yêu cầu không hợp lệ");
+    // }
+    
+    @ExceptionHandler(BindException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)  // Nếu validate fail thì trả về 400
+    public String handleBindException(BindException e) {
+        // Trả về message của lỗi đầu tiên
+        return e.getBindingResult().getAllErrors().get(0).getDefaultMessage();
     }
 }

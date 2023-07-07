@@ -1,5 +1,6 @@
 package online.shop.store.services.admin;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -10,15 +11,16 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
-import online.shop.store.dto.RegisterAdmin;
 import online.shop.store.dto.RegisterLocation;
-import online.shop.store.dto.entity.Admin;
 import online.shop.store.dto.entity.Role;
 import online.shop.store.dto.entity.RoleName;
+import online.shop.store.dto.entity.admin.Admin;
+import online.shop.store.dto.entity.admin.RegisterAdmin;
 import online.shop.store.dto.entity.location.Location;
 import online.shop.store.repository.AdminRepository;
 import online.shop.store.repository.RoleRepository;
 import online.shop.store.services.location.LocationService;
+import online.shop.store.utils.sendgrid.ISendEmail;
 
 @Service
 public class AdminService implements IAdminService{
@@ -28,6 +30,8 @@ public class AdminService implements IAdminService{
     private RoleRepository roleRepository;
     @Autowired
     private LocationService locationService;
+    @Autowired
+    private ISendEmail sendEmail;
 
     @Override
     public Admin save(RegisterAdmin registerAdmin, Admin admin) {
@@ -68,7 +72,13 @@ public class AdminService implements IAdminService{
         Optional<Admin> admin=adminRepository.findByEmail(email);
         if(!admin.isPresent()){
             new NotFoundException("not Found admin by email");
-        }
-        return admin.get();
+    }
+
+    String newPass="newPass";
+    sendEmail.sendMail("Forget Password", newPass, Collections.singletonList(email), null, null);
+    Admin resetPass=admin.get();
+    resetPass.setPassword(newPass);
+    adminRepository.save(resetPass);   
+    return admin.get();
     }
 }

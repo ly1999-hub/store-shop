@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 import lombok.*;
+import online.shop.store.dto.entity.admin.Admin;
 
 @Data
 @Entity

@@ -1,4 +1,4 @@
-package online.shop.store.dto.entity;
+package online.shop.store.dto.entity.admin;
 
 import java.util.Set;
 
@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
+import online.shop.store.dto.entity.Role;
 import online.shop.store.dto.entity.location.Location;
 
 @Entity
