@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import online.shop.store.dto.RegisterLocation;
-import online.shop.store.models.location.Location;
+import online.shop.store.dto.entity.location.Location;
 import online.shop.store.services.location.LocationService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

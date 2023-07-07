@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 
 import online.shop.store.dto.RegisterAdmin;
 import online.shop.store.dto.RegisterLocation;
-import online.shop.store.models.Admin;
-import online.shop.store.models.Role;
-import online.shop.store.models.RoleName;
-import online.shop.store.models.location.Location;
+import online.shop.store.dto.entity.Admin;
+import online.shop.store.dto.entity.Role;
+import online.shop.store.dto.entity.RoleName;
+import online.shop.store.dto.entity.location.Location;
 import online.shop.store.repository.AdminRepository;
 import online.shop.store.repository.RoleRepository;
 import online.shop.store.services.location.LocationService;

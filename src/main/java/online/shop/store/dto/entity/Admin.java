@@ -1,13 +1,14 @@
-package online.shop.store.models;
+package online.shop.store.dto.entity;
 
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
-import online.shop.store.models.location.Location;
+import online.shop.store.dto.entity.location.Location;
 
 @Entity
 @Data
@@ -32,11 +33,16 @@ public class Admin {
     @Column(name = "lock", nullable = false, columnDefinition = "BOOLEAN DEFAULT false")
     private Boolean lock;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "admins")
+    @EqualsAndHashCode.Exclude // không sử dụng trường này trong equals và hashcode
+    @ToString.Exclude // Khoonhg sử dụng trong toString()
     private Set<Role> roles;
 
     @ManyToOne
     @JoinColumn(name = "location_id")
     @JsonBackReference // chiều con
+    @EqualsAndHashCode.Exclude // không sử dụng trường này trong equals và hashcode
+    @ToString.Exclude // Khoonhg sử dụng trong toString()
     private Location location;
 }

@@ -32,9 +32,9 @@ public class StoreApplication {
 	// 		roleRepository.save(new Role(RoleName.ORDER));
 	// 		roleRepository.save(new Role(RoleName.LOCATION));
 
-	// 		Province province=provinceRepository.save(new Province("Da Nang"));
-	// 		Distric distric=districtRepository.save(new Distric("Lien Chieu", province));
-	// 		Ward ward =wardRepository.save(new Ward("Hoa Khanh Nam", distric));
+	// 		// Province province=provinceRepository.save(new Province("Da Nang"));
+	// 		// Distric distric=districtRepository.save(new Distric("Lien Chieu", province));
+	// 		// Ward ward =wardRepository.save(new Ward("Hoa Khanh Nam", distric));
 	// 	};
 	// }
 	

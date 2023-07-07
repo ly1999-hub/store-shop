@@ -1,4 +1,4 @@
-package online.shop.store.models.location;
+package online.shop.store.dto.entity.location;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 

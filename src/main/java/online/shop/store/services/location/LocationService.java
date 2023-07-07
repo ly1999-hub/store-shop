@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import online.shop.store.dto.RegisterLocation;
-import online.shop.store.models.location.Distric;
-import online.shop.store.models.location.Location;
-import online.shop.store.models.location.Province;
-import online.shop.store.models.location.Ward;
+import online.shop.store.dto.entity.location.Distric;
+import online.shop.store.dto.entity.location.Location;
+import online.shop.store.dto.entity.location.Province;
+import online.shop.store.dto.entity.location.Ward;
 import online.shop.store.repository.location.LocationRepository;
 import online.shop.store.repository.location.WardRepository;
 
