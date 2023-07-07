@@ -1,12 +1,14 @@
 package online.shop.store.services.admin;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.webjars.NotFoundException;
 
 import online.shop.store.dto.RegisterAdmin;
 import online.shop.store.dto.RegisterLocation;
@@ -61,4 +63,12 @@ public class AdminService implements IAdminService{
         return adminRepository.existsByEmail(email);
     }
     
+    @Override
+    public Admin forgetPassword(String email){
+        Optional<Admin> admin=adminRepository.findByEmail(email);
+        if(!admin.isPresent()){
+            new NotFoundException("not Found admin by email");
+        }
+        return admin.get();
+    }
 }

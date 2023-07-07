@@ -1,5 +1,6 @@
 package online.shop.store.controllers.admin;
 
+import java.util.Collections;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import online.shop.store.dto.RegisterAdmin;
 import online.shop.store.dto.entity.Admin;
 import online.shop.store.repository.AdminRepository;
 import online.shop.store.services.admin.AdminService;
+import online.shop.store.utils.sendgrid.SendEmail;
 
 @RestController
 @RequestMapping(value = "/api/v1/admin")
@@ -40,6 +42,7 @@ public class AdminController {
         return "login";
     }
 
+    private SendEmail sendEmail;
     // RegisterAdmin ..
     @PostMapping("/register")
     public ResponseEntity<?> registerAdmin(@RequestBody RegisterAdmin registerAdmin){
@@ -112,7 +115,13 @@ public class AdminController {
             admin2.setLock(!admin2.getLock());
             System.out.println(admin2.getRoles());
             return new ResponseEntity<Admin>(adminRepository.save(admin2), HttpStatus.OK);
-           
         }
+    }
+
+    @PostMapping("/forget-password")
+    public ResponseEntity<?> forgetPassword(@RequestParam("email") String email){
+        Admin admin=adminService.forgetPassword(email);
+        sendEmail.sendMail("Forget Password", "newPass", Collections.singletonList(email), null, null);
+        return new ResponseEntity<String>("login", HttpStatus.OK);
     }
 }

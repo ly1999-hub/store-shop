@@ -8,7 +8,7 @@ import online.shop.store.dto.entity.Admin;
 
 public interface AdminRepository extends JpaRepository<Admin,Integer>{
     Optional<Admin> findById(Integer id);
-
+    Optional<Admin> findByEmail(String email);
     Boolean existsByEmail(String email);
     
 }

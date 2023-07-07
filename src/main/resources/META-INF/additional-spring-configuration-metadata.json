@@ -1,5 +1,22 @@
-{"properties": [{
-  "name": "upload.path",
-  "type": "java.lang.String",
-  "description": "A description for 'upload.path'"
-}]}
+{"properties": [
+  {
+    "name": "upload.path",
+    "type": "java.lang.String",
+    "description": "A description for 'upload.path'"
+  },
+  {
+    "name": "send_grid.api_key",
+    "type": "java.lang.String",
+    "description": "A description for 'send_grid.api_key'"
+  },
+  {
+    "name": "send_grid.from_email",
+    "type": "java.lang.String",
+    "description": "A description for 'send_grid.from_email'"
+  },
+  {
+    "name": "send_grid.from_name",
+    "type": "java.lang.String",
+    "description": "A description for 'send_grid.from_name'"
+  }
+]}

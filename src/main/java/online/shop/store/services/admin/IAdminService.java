@@ -9,4 +9,5 @@ public interface IAdminService {
     Admin save(RegisterAdmin registerAdmin,Admin admin);
     Page<Admin> allAdmin(int page,int total);
     Boolean existAdminByEmail(String email);
+    Admin forgetPassword(String email);
 }
