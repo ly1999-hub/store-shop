@@ -42,20 +42,6 @@ public class AdminController {
         return "login";
     }
 
-    // RegisterAdmin ..
-    @PostMapping("/register")
-    public ResponseEntity<?> registerAdmin(@RequestBody @Valid RegisterAdmin registerAdmin){
-        if(adminService.existAdminByEmail(registerAdmin.getEmail())){
-            return new ResponseEntity<String>("email đã tồn tại", HttpStatus.CONFLICT);
-        }
-        Admin admin=adminService.save(registerAdmin,new Admin());
-        if(admin!=null){
-            return new ResponseEntity<Admin>(admin,HttpStatus.CREATED);
-        }else{
-            return new ResponseEntity<String>("exception when create Admin", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
     // AllAdmin by Page
     @GetMapping("/authen/all")
     public ResponseEntity<?> allAdmin(@RequestParam int page,@RequestParam int total){
@@ -77,7 +63,21 @@ public class AdminController {
            
         }
     }
-    
+
+    // RegisterAdmin ..
+    @PostMapping("/register")
+    public ResponseEntity<?> registerAdmin(@RequestBody @Valid RegisterAdmin registerAdmin){
+        if(adminService.existAdminByEmail(registerAdmin.getEmail())){
+            return new ResponseEntity<String>("email đã tồn tại", HttpStatus.CONFLICT);
+        }
+        Admin admin=adminService.save(registerAdmin,new Admin());
+        if(admin!=null){
+            return new ResponseEntity<Admin>(admin,HttpStatus.CREATED);
+        }else{
+            return new ResponseEntity<String>("exception when create Admin", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     // UpdateAdminById ...
     @PostMapping("/authen/update/{id}")
     public ResponseEntity<?> updateAdminById(@PathVariable("id") Integer id,@RequestBody RegisterAdmin registerAdmin){

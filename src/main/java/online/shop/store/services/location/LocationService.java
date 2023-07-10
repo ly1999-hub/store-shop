@@ -3,6 +3,9 @@ package online.shop.store.services.location;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import online.shop.store.dto.RegisterLocation;
@@ -10,7 +13,9 @@ import online.shop.store.dto.entity.location.Distric;
 import online.shop.store.dto.entity.location.Location;
 import online.shop.store.dto.entity.location.Province;
 import online.shop.store.dto.entity.location.Ward;
+import online.shop.store.repository.location.DistrictRepository;
 import online.shop.store.repository.location.LocationRepository;
+import online.shop.store.repository.location.ProvinceRepository;
 import online.shop.store.repository.location.WardRepository;
 
 @Service
@@ -20,6 +25,11 @@ public class LocationService implements ILocationService {
     private LocationRepository locationRepository;
     @Autowired
     private WardRepository wardRepository;
+    @Autowired
+    private ProvinceRepository provinceRepository;
+    @Autowired
+    private DistrictRepository districtRepository;
+    
     @Override
     public Location save(RegisterLocation registerLocation) {
         Ward ward=findWardById(registerLocation.getIdWard());
@@ -48,15 +58,24 @@ public class LocationService implements ILocationService {
     }
 
     @Override
-    public Distric finDistricById(Integer id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'finDistricById'");
+    public Page<Province> allProvince(int page,int total){
+        PageRequest pageDetail=PageRequest.of(page, total, Sort.by("nameProvince"));
+        Page<Province> allprovince=provinceRepository.findAll(pageDetail);
+        return allprovince;
     }
 
     @Override
-    public Province findProvinceById(Integer id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findProvinceById'");
+    public Page<Distric> allDistric(int page, int total) {
+        PageRequest pageDetail=PageRequest.of(page,total,Sort.by("province"));
+        Page<Distric> allDistrict= districtRepository.findAll(pageDetail);
+        return allDistrict;
+    }
+
+    @Override
+    public Page<Ward> allWard(int page, int total) {
+        PageRequest pageDetail=PageRequest.of(page,total,Sort.by("district"));
+        Page<Ward> allWard= wardRepository.findAll(pageDetail);
+        return allWard;
     }
     
 }

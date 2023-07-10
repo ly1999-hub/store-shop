@@ -25,15 +25,21 @@ public class StoreApplication {
 	// @Bean
 	// CommandLineRunner run(RoleRepository roleRepository,ProvinceRepository provinceRepository,DistrictRepository districtRepository,WardRepository wardRepository){
 	// 	return args->{
-	// 		roleRepository.save(new Role(RoleName.USER));
-	// 		roleRepository.save(new Role(RoleName.ADMIN));
-	// 		roleRepository.save(new Role(RoleName.ORDER));
-	// 		roleRepository.save(new Role(RoleName.LOCATION));
+	// 		// roleRepository.save(new Role(RoleName.USER));
+	// 		// roleRepository.save(new Role(RoleName.ADMIN));
+	// 		// roleRepository.save(new Role(RoleName.ORDER));
+	// 		// roleRepository.save(new Role(RoleName.LOCATION));
 
-	// 		Province province=provinceRepository.save(new Province("Da Nang"));
-	// 		Distric distric=districtRepository.save(new Distric("Lien Chieu", province));
-	// 		Ward ward =wardRepository.save(new Ward("Hoa Khanh Nam", distric));
-	// 		System.out.print(ward.toString());
+	// 		Province province=provinceRepository.save(new Province("Nghệ An"));
+	// 		Distric distric=districtRepository.save(new Distric("Đô Lương", province));
+	// 		Ward ward =wardRepository.save(new Ward("Quang Sơn", distric));
+	// 		Ward ward1 =wardRepository.save(new Ward("Thái Sơn", distric));
+	// 		Ward ward2 =wardRepository.save(new Ward("Thượng Sơn", distric));
+	// 		Ward ward3 =wardRepository.save(new Ward("Minh Sơn", distric));
+	// 		Ward ward4 =wardRepository.save(new Ward("Tân Sơn", distric));
+	// 		Ward ward5 =wardRepository.save(new Ward("Hòa Sơn", distric));
+	// 		Ward ward6 =wardRepository.save(new Ward("Đại Sơn", distric));
+	// 		System.out.print(ward.toString()+" "+ward1.toString()+ " "+ward2.toString()+" "+ward3.toString()+" "+ward4.toString()+" "+ward5.toString()+" "+ward6.toString()+" ");
 	// 	};
 	// }
 	

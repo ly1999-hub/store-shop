@@ -1,14 +1,10 @@
 package online.shop.store.dto.entity;
 
 import java.io.Serializable;
-import java.util.Set;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import online.shop.store.dto.entity.admin.Admin;
 
 @Data
 @Entity
@@ -25,8 +21,9 @@ public class Role implements Serializable{
     private Integer id;
     
     @Enumerated(EnumType.STRING)
-    RoleName roleName ;
+    private RoleName roleName ;
     
+    // ----postgresql----
     // @JsonIgnore
     // @ManyToMany(cascade=CascadeType.ALL)
     // @JoinTable(

@@ -1,6 +1,5 @@
 package online.shop.store.dto.entity.admin;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -11,8 +10,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.SerializableString;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
@@ -30,7 +27,7 @@ import online.shop.store.dto.entity.location.Location;
 @ToString
 @Table(name = "admins")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Admin implements Serializable,UserDetails{
+public class Admin implements UserDetails{
     @Id
     @GeneratedValue(strategy =GenerationType.IDENTITY)
     private Integer id;
