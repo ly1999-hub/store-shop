@@ -19,11 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
 import online.shop.store.dto.entity.admin.Admin;
-import online.shop.store.dto.entity.admin.AdminResponse;
+import online.shop.store.dto.entity.admin.DtoLoginAdmin;
 import online.shop.store.dto.entity.admin.RegisterAdmin;
 import online.shop.store.repository.AdminRepository;
 import online.shop.store.services.admin.AdminService;
-import online.shop.store.utils.sendgrid.SendEmail;
 
 @RestController
 @RequestMapping(value = "/api/v1/admin")
@@ -58,7 +57,7 @@ public class AdminController {
     }
 
     // AllAdmin by Page
-    @GetMapping("/all")
+    @GetMapping("/authen/all")
     public ResponseEntity<?> allAdmin(@RequestParam int page,@RequestParam int total){
         Page<Admin> pageAdmins=adminService.allAdmin(page, total);
         if(page>pageAdmins.getTotalPages()-1){
@@ -68,7 +67,7 @@ public class AdminController {
     }
     
     // GetAdminById ..
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/authen/{id}")
     public ResponseEntity<?> getAdminById(@PathVariable("id") Integer id) throws NotFoundException{
         Optional<Admin> admin =adminRepository.findById(id);
         if(admin.isEmpty()){
@@ -80,7 +79,7 @@ public class AdminController {
     }
     
     // UpdateAdminById ...
-    @PostMapping("/update/{id}")
+    @PostMapping("/authen/update/{id}")
     public ResponseEntity<?> updateAdminById(@PathVariable("id") Integer id,@RequestBody RegisterAdmin registerAdmin){
         Optional<Admin> admin=adminRepository.findById(id);
         if(admin.isEmpty()){
@@ -93,7 +92,7 @@ public class AdminController {
     }
 
     // DeleteAdminById ...
-    @RequestMapping(value="/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value="/authen/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteAdminById(@PathVariable("id") Integer id){
         Optional<Admin> admin=adminRepository.findById(id);
         if(admin.isEmpty()){
@@ -105,7 +104,7 @@ public class AdminController {
     }
 
     // lockAndUnlock
-    @PostMapping("/lock-unlock/{id}")
+    @PostMapping("/authen/lock-unlock/{id}")
     public  ResponseEntity<?> lockAndUnlock(@PathVariable("id") Integer id){
         Optional<Admin> admin =adminRepository.findById(id);
         if(admin.isEmpty()){
@@ -118,9 +117,15 @@ public class AdminController {
         }
     }
 
-    @PostMapping("/forget-password")
+    @PostMapping("/authen/forget-password")
     public ResponseEntity<?> forgetPassword(@RequestParam("email") String email){
         Admin admin=adminService.forgetPassword(email);
         return new ResponseEntity<Admin>(admin, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/login")
+    public String login(@RequestBody DtoLoginAdmin dtoLoginAdmin){
+        String token =adminService.loginAdmin(dtoLoginAdmin);
+        return token;
     }
 }

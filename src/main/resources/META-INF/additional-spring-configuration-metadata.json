@@ -18,5 +18,15 @@
     "name": "send_grid.from_name",
     "type": "java.lang.String",
     "description": "A description for 'send_grid.from_name'"
+  },
+  {
+    "name": "jwt.secret",
+    "type": "java.lang.String",
+    "description": "A description for 'jwt.secret'"
+  },
+  {
+    "name": "jwt.expiration",
+    "type": "java.lang.String",
+    "description": "A description for 'jwt.expiration'"
   }
 ]}
