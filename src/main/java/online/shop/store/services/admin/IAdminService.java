@@ -11,5 +11,6 @@ public interface IAdminService {
     Page<Admin> allAdmin(int page,int total);
     Boolean existAdminByEmail(String email);
     Admin forgetPassword(String email);
+    Admin lockAndUnlock(Integer id);
     String loginAdmin(DtoLoginAdmin dtoLoginAdmin);
 }

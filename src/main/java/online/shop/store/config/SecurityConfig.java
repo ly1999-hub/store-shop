@@ -28,7 +28,8 @@ public class SecurityConfig {
 		http.csrf(csrf->csrf.disable())
             .authorizeHttpRequests(authorize -> authorize   
             .requestMatchers(HttpMethod.POST,"/api/v1/admin/register").permitAll()
-            .requestMatchers(HttpMethod.POST,"/api/v1/admin/login").permitAll()                             
+            .requestMatchers(HttpMethod.POST,"/api/v1/admin/login").permitAll()
+            .requestMatchers(HttpMethod.POST, "/api/v1/admin/forget-password").permitAll()                            
 			.requestMatchers("/api/v1/admin/authen/**").hasAuthority("ADMIN")                    
 			.requestMatchers("/swagger-ui/**").permitAll()
             .requestMatchers("/v3/**").permitAll()

@@ -10,6 +10,8 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -75,9 +77,9 @@ public class AdminService implements IAdminService{
     @Override
     public Page<Admin> allAdmin(int page, int total) {
         PageRequest pageDetail = PageRequest.of(page, total);
-        Page<Admin> allProducts = adminRepository.findAll(pageDetail);
+        Page<Admin> allAdmin = adminRepository.findAll(pageDetail);
 
-        return allProducts;
+        return allAdmin;
     }
 
     @Override
@@ -87,16 +89,11 @@ public class AdminService implements IAdminService{
     
     @Override
     public Admin forgetPassword(String email){
-        Optional<Admin> admin=adminRepository.findByEmail(email);
-        if(!admin.isPresent()){
-            new NotFoundException("not Found admin by email");
-        }
+        Admin admin= adminRepository.findByEmail(email).orElseThrow(()->new UsernameNotFoundException("không tìm thấy adminByEmail"));
         String newPass="newPass";
         sendEmail.sendMail("Forget Password", newPass, Collections.singletonList(email), null, null);
-        Admin resetPass=admin.get();
-        resetPass.setPassword(newPass);
-        adminRepository.save(resetPass);   
-        return admin.get();
+        admin.setPassword(newPass);
+        return adminRepository.save(admin);
     }
 
     @Override
@@ -110,5 +107,11 @@ public class AdminService implements IAdminService{
         admin.getRoles().forEach(role->rolesName.add(role.getRoleName()));
         String token = jwtUtil.generateToken(admin.getEmail(), rolesName);
         return token;
+    }
+
+    @Override
+    public Admin lockAndUnlock(Integer id) {
+        Admin admin=adminRepository.findById(id).orElseThrow(()->new UsernameNotFoundException("không tìm thấy adminByEmail"));
+        return admin;
     }
 }

@@ -3,7 +3,6 @@ package online.shop.store.controllers.admin;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -32,9 +31,6 @@ public class AdminController {
 
     @Autowired
     private AdminRepository adminRepository;
-
-    @Value("${upload.path}")
-    private String fileUpload;
 
     // GetLogin ...
     @GetMapping("/login")
@@ -117,7 +113,7 @@ public class AdminController {
         }
     }
 
-    @PostMapping("/authen/forget-password")
+    @PostMapping("/forget-password")
     public ResponseEntity<?> forgetPassword(@RequestParam("email") String email){
         Admin admin=adminService.forgetPassword(email);
         return new ResponseEntity<Admin>(admin, HttpStatus.CREATED);

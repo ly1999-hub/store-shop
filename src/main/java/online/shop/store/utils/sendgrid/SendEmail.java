@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import com.sendgrid.Content;
 import com.sendgrid.Email;
@@ -15,7 +15,7 @@ import com.sendgrid.Request;
 import com.sendgrid.Response;
 import com.sendgrid.SendGrid;
 
-@Service
+@Component
 public class SendEmail implements ISendEmail{
 
     private static final String CONTENT_TYPE_TEXT_PLAIN = "text/plain";
