@@ -14,4 +14,5 @@ public interface ILocationService {
     Page<Province> allProvince(int page,int total);
     Page<Distric> allDistric(int page,int total);
     Page<Ward> allWard(int page,int total);
+    String getLocationToString(Integer id);
 }

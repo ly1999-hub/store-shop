@@ -4,14 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -19,7 +16,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.webjars.NotFoundException;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -48,7 +44,7 @@ public class AdminService implements IAdminService{
     private LocationService locationService;
     @Autowired
     private ISendEmail sendEmail;
-
+    
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
@@ -113,5 +109,19 @@ public class AdminService implements IAdminService{
     public Admin lockAndUnlock(Integer id) {
         Admin admin=adminRepository.findById(id).orElseThrow(()->new UsernameNotFoundException("không tìm thấy adminByEmail"));
         return admin;
+    }
+
+    @Override
+    public List<Admin> findAdminByAdminName(String adminName){
+        if(adminName==""){
+            return adminRepository.findAll();
+        }
+
+        return adminRepository.findByNameAdminContaining(adminName);
+    }
+
+    @Override
+    public void exportExcel(){
+        
     }
 }

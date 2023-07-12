@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import online.shop.store.dto.RegisterLocation;
@@ -48,13 +49,8 @@ public class LocationService implements ILocationService {
 
     @Override
     public Ward findWardById(Integer id) {
-        Optional<Ward> ward=wardRepository.findById(id);
-        if(ward.isEmpty()){
-            new NullPointerException("không tìm thấy Ward by id");
-            return null;
-        }else{
-            return ward.orElse(null);
-        }
+        Ward ward=wardRepository.findById(id).orElseThrow(()->new UsernameNotFoundException("không tìm thấy adminByEmail"));
+        return ward;
     }
 
     @Override
@@ -78,4 +74,11 @@ public class LocationService implements ILocationService {
         return allWard;
     }
     
+    @Override
+    public String getLocationToString(Integer id){
+        Ward ward=findWardById(id);
+        Distric district=ward.getDistric();
+        Province province=district.getProvince();
+        return ward.getNameWard()+","+district.getNameDistric()+","+province.getNameProvince();
+    }
 }
