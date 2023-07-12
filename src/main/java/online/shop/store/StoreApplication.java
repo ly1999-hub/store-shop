@@ -1,19 +1,19 @@
 package online.shop.store;
 
-// import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-// import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Bean;
 
-// import online.shop.store.repository.location.ProvinceRepository;
-// import online.shop.store.dto.entity.Role;
-// import online.shop.store.dto.entity.RoleName;
-// import online.shop.store.dto.entity.location.Distric;
-// import online.shop.store.dto.entity.location.Province;
-// import online.shop.store.dto.entity.location.Ward;
-// import online.shop.store.repository.RoleRepository;
-// import online.shop.store.repository.location.DistrictRepository;
-// import online.shop.store.repository.location.WardRepository;
+import online.shop.store.repository.location.ProvinceRepository;
+import online.shop.store.dto.entity.Role;
+import online.shop.store.dto.entity.RoleName;
+import online.shop.store.dto.entity.location.Distric;
+import online.shop.store.dto.entity.location.Province;
+import online.shop.store.dto.entity.location.Ward;
+import online.shop.store.repository.RoleRepository;
+import online.shop.store.repository.location.DistrictRepository;
+import online.shop.store.repository.location.WardRepository;
 
 @SpringBootApplication
 public class StoreApplication {
@@ -25,10 +25,10 @@ public class StoreApplication {
 	// @Bean
 	// CommandLineRunner run(RoleRepository roleRepository,ProvinceRepository provinceRepository,DistrictRepository districtRepository,WardRepository wardRepository){
 	// 	return args->{
-	// 		// roleRepository.save(new Role(RoleName.USER));
-	// 		// roleRepository.save(new Role(RoleName.ADMIN));
-	// 		// roleRepository.save(new Role(RoleName.ORDER));
-	// 		// roleRepository.save(new Role(RoleName.LOCATION));
+	// 		roleRepository.save(new Role(RoleName.USER));
+	// 		roleRepository.save(new Role(RoleName.ADMIN));
+	// 		roleRepository.save(new Role(RoleName.ORDER));
+	// 		roleRepository.save(new Role(RoleName.LOCATION));
 
 	// 		Province province=provinceRepository.save(new Province("Nghệ An"));
 	// 		Distric distric=districtRepository.save(new Distric("Đô Lương", province));

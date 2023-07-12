@@ -1,8 +1,12 @@
 package online.shop.store.services.user;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +31,8 @@ public class UserService implements IUserService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private final RoleRepository roleRepository;
+    private RoleRepository roleRepository;
+    
     private final TimeNow timeNow;
     private final PasswordEncoder passwordEncoder;
     
@@ -36,14 +41,14 @@ public class UserService implements IUserService {
        
         user.setUserName(userRegister.getUserName());
         user.setEmail(userRegister.getEmail());
+        user.setPhone(userRegister.getPhone());
         user.setPassword(passwordEncoder.encode(userRegister.getPassword()));
         user.setAvatar("url");
         user.setLock(false);
         user.setRole(roleRepository.findByRoleName(RoleName.USER));
 
-        user.setBills(new ArrayList<Bill>());
         String locationToString= locationService.getLocationToString(userRegister.getIdWard());
-        String location=locationToString+","+userRegister.getLocationDetail();
+        String location=userRegister.getLocationDetail()+","+locationToString;
         user.setLocation(location);
         
         user.setCreatedAt(timeNow.getTimeNow());
@@ -54,4 +59,19 @@ public class UserService implements IUserService {
         return newUser;
     }
     
+    @Override
+    public Boolean checkExistByEmailOrPhone(String email,String phone){
+        List<User> users=userRepository.findByEmailOrPhone(email, phone);
+        if(users.isEmpty()){
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public Page<User> allUsers(int page,int total){
+        PageRequest pageDetail=PageRequest.of(page,total,Sort.by("userName"));
+        Page<User> pageUser= userRepository.findAll(pageDetail);
+        return pageUser;
+    }
 }
