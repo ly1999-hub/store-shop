@@ -88,7 +88,7 @@ public class AdminService implements IAdminService{
         Admin admin= adminRepository.findByEmail(email).orElseThrow(()->new UsernameNotFoundException("không tìm thấy adminByEmail"));
         String newPass="newPass";
         sendEmail.sendMail("Forget Password", newPass, Collections.singletonList(email), null, null);
-        admin.setPassword(newPass);
+        admin.setPassword(passwordEncoder.encode(newPass));
         return adminRepository.save(admin);
     }
 

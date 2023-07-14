@@ -12,7 +12,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import online.shop.store.dto.entity.Role;
@@ -32,11 +31,9 @@ public class Admin implements UserDetails{
     @GeneratedValue(strategy =GenerationType.IDENTITY)
     private Integer id;
 
-    @NotEmpty(message = "name khong duoc bo trong")
+
     private String nameAdmin;
-    @NotEmpty(message="email khong duoc bo trong")
     private String email;
-    @NotEmpty(message = "mat khau khong duoc de trong")
     private String password;
     private String avatar;
     @Column(name = "`lock`")

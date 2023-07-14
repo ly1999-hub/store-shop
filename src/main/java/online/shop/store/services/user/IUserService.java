@@ -1,7 +1,5 @@
 package online.shop.store.services.user;
 
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 
 import online.shop.store.dto.entity.user.User;

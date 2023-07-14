@@ -1,6 +1,5 @@
 package online.shop.store.services.user;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Service;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import online.shop.store.dto.entity.RoleName;
-import online.shop.store.dto.entity.products.Bill;
 import online.shop.store.dto.entity.user.User;
 import online.shop.store.dto.entity.user.UserRegister;
 import online.shop.store.repository.RoleRepository;

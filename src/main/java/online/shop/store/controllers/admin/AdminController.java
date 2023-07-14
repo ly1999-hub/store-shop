@@ -1,9 +1,6 @@
 package online.shop.store.controllers.admin;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,9 +21,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import online.shop.store.dto.entity.admin.Admin;
 import online.shop.store.dto.entity.admin.DtoLoginAdmin;
 import online.shop.store.dto.entity.admin.RegisterAdmin;
+import online.shop.store.internal.Responses;
 import online.shop.store.repository.AdminRepository;
 import online.shop.store.services.admin.AdminService;
 import online.shop.store.utils.file.UserExcelExporter;
@@ -34,6 +33,7 @@ import online.shop.store.utils.file.UserExcelExporter;
 @RestController
 @RequestMapping(value = "/api/v1/admin")
 @CrossOrigin(origins = "*", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST})
+@RequiredArgsConstructor
 public class AdminController {
     @Autowired
     private AdminService adminService;
@@ -41,13 +41,14 @@ public class AdminController {
     @Autowired
     private AdminRepository adminRepository;
 
+    private final Responses responses;
     // GetLogin ...
     @GetMapping("/no-authen/login")
     public String loginAdmin(){
         return "login";
     }
 
-    // AllAdmin by Page
+    // AllAdmin with Page
     @GetMapping("/authen/all")
     public ResponseEntity<?> allAdmin(@RequestParam int page,@RequestParam int total){
         Page<Admin> pageAdmins=adminService.allAdmin(page, total);
@@ -141,20 +142,26 @@ public class AdminController {
     }
 
     @GetMapping("/no-authen/export-excel")
-    public void exportExcel(HttpServletResponse response) throws IOException{
-        response.setContentType("application/octet-stream");
-        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
-        String currentDateTime = dateFormatter.format(new Date());
-         
-        String headerKey = "Content-Disposition";
-        String headerValue = "attachment; filename=users_" + currentDateTime + ".xlsx";
-        response.setHeader(headerKey, headerValue);
-         
+    public void excelExporter(HttpServletResponse response) throws IOException{
+        responses.responseHeaderExcelExporter(response);
         List<Admin> listUsers = adminRepository.findAll();
          
         UserExcelExporter excelExporter = new UserExcelExporter(listUsers);
          
         excelExporter.export(response);  
         
+    }
+
+    @GetMapping("/no-authen/export-excel-name")
+    public ResponseEntity<?> excelExporterByAdminName(HttpServletResponse response,@RequestParam("name") String name) throws IOException{
+        List<Admin> listUsers = adminRepository.findByNameAdminContaining(name);
+        if(listUsers.isEmpty()){
+             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        responses.responseHeaderExcelExporter(response);
+        UserExcelExporter excelExporter = new UserExcelExporter(listUsers);
+        excelExporter.export(response);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
